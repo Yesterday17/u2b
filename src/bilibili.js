@@ -1,12 +1,16 @@
+const EventEmitter = require("events").EventEmitter;
 const puppeteer = require("puppeteer");
-const debug = false;
+const util = require("util");
 
-try {
-  (async () => {
-    const config = require("./config");
+function bilibili() {
+  EventEmitter.call(this);
+}
+
+bilibili.prototype.upload = async config => {
+  try {
     let browser;
 
-    if (debug) {
+    if (config.debug) {
       browser = await puppeteer.launch({
         headless: false,
         slowMo: 250,
@@ -17,6 +21,8 @@ try {
     }
 
     const page = await browser.newPage();
+
+    EventEmitter;
 
     const addTag = async content => {
       const tag = await page.waitForSelector(
@@ -76,7 +82,6 @@ try {
     await addCookie("bili_jct");
     await addCookie("SESSDATA");
     await addCookie("DedeUserID");
-    console.log(`[log] Cookies set.`);
 
     // Gogo page
     await page.goto(config.url);
@@ -85,7 +90,6 @@ try {
     await addLocalStorage("bili_upload_v3_notify_1_alert", "null");
 
     // Upload Video File
-    console.log(`[log] Video uploading...`);
     await upload(
       `[accept=".mp4,.flv,.avi,.wmv,.mov,.webm,.mpeg4,.ts,.mpg,.rm,.rmvb,.mkv"]`,
       config.video[0]
@@ -96,7 +100,6 @@ try {
     await clickNode(".notify-v2-close");
 
     // Add Cover
-    console.log(`[log] Cover uploading...`);
     if (config.autogen) {
       const selector = ".selector-item + ".repeat(config.select);
       await clickNode(selector.substring(0, selector.length - 2) + "> img");
@@ -106,7 +109,6 @@ try {
     }
 
     // Type
-    console.log(`[log] Type setting...`);
     if (config.type) {
       await clickNode(
         ".check-radio-v2-container + .check-radio-v2-container > .check-radio-v2-box"
@@ -118,7 +120,6 @@ try {
     }
 
     // Category
-    console.log(`[log] Category setting...`);
     await clickNode(".selebox-box-v2-drop-icon");
     const container = await page.waitForSelector(".drop-cascader-container");
     const main_category = (await container.$$(".pre-item-content"))[
@@ -133,17 +134,14 @@ try {
     await sub_category.click();
 
     // Tag
-    console.log(`[log] Tag setting...`);
     for (let t in config.tags) {
       await addTag(config.tags[t]);
     }
 
     // Description
-    console.log(`[log] Description setting...`);
     await setText(`.text-area-box-v2-val`, config.description);
 
     // Commercial
-    console.log(`[log] Commercial setting...`);
     if (config.commercial) {
       await clickNode(`#more-selector-v2`);
       await clickNode(
@@ -152,42 +150,35 @@ try {
     }
 
     // Dynamic
-    console.log(`[log] Dynamic setting...`);
     await setText(
       `.fans-dynamic-v2-input-wrp > .text-area-box-v2-container > .text-area-box-v2-val`,
       config.dynamic
     );
 
-    await page.screenshot({ path: "content-successful.png", fullPage: true });
-
     // Upload finish
-    console.log(`[log] Upload finished.`);
     await page.waitForSelector(`.item-upload-progress-complete`, {
       timeout: 3600000
     });
 
     // Title
-    console.log(`[log] Title setting...`);
     await setText(
       `.content-title-v2-input-wrp .input-box-v2-1-val`,
       config.title
     );
 
-    await page.screenshot({ path: "upload-successful.png", fullPage: true });
+    this.emit("uploaded", page);
 
     // Submit Form
-    console.log(`[log] Submitting...`);
-    // await clickNode(`.submit-btn-group-add`);
+    await clickNode(`.submit-btn-group-add`);
 
-    // Debug screenshot
-    await page.screenshot({ path: "submit-successful.png", fullPage: true });
+    // Success
+    this.emit("success", page);
 
     // Close browser
     await browser.close();
-  })();
-} catch (e) {
-  console.error(`[Err] ${e.message}`);
-  if (e.message === "Cannot find module './config'") {
-    console.error(`[Err] You should configure your 'config.js' correctly!`);
+  } catch (e) {
+    this.emit("error", e.message);
   }
-}
+};
+
+module.exports = bilibili;
