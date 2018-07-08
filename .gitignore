@@ -7,4 +7,5 @@ config.js
 *.jpg
 *.mp4
 *.flv
-assets/
+assets/*
+!assets/.gitkeep
