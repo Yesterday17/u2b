@@ -181,7 +181,7 @@ class bilibili extends EventEmitter {
       // Close browser
       await browser.close();
     } catch (e) {
-      this.emit("error", e.message);
+      this.emit("error", e);
     }
   }
 }
