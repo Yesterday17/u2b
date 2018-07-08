@@ -12,13 +12,24 @@ const router = new Router();
 let id = 0;
 
 router.get("/v/watch", async (ctx, next) => {
+  ctx.response.type = "application/json";
+
+  if (ctx.request.query.v === undefined) {
+    ctx.response.body = JSON.stringify(
+      { message: "You must input param v!" },
+      null,
+      2
+    );
+    return;
+  }
+
   const url = `https://www.youtube.com/watch?v=${ctx.request.query.v}`;
   const path = `../assets/${ctx.request.query.v}`;
   console.log(`${ctx.request.ip} is creating a download of ${url}`);
 
   // Download video.
 
-  // Screenshot.
+  // Screenshot
   ffmpeg(`${path}/video.flv`).screenshots({
     count: 1,
     folder: path,
@@ -26,7 +37,7 @@ router.get("/v/watch", async (ctx, next) => {
     size: "1146x717"
   });
 
-  // Upload.
+  // Upload
   let cfg = {
     video: [`${path}/video.flv`],
     cover: `${path}/cover.png`,
@@ -41,7 +52,16 @@ router.get("/v/watch", async (ctx, next) => {
     //
   });
   */
-  ctx.response.body = `${ctx.request.ip} is creating a download of ${url}`;
+  ctx.response.body = JSON.stringify(
+    { message: `${ctx.request.ip} is creating a download of ${url}` },
+    null,
+    2
+  );
+});
+
+router.get("/", async (ctx, next) => {
+  ctx.response.type = "html";
+  ctx.response.body = fs.readFileSync("./statics/index.html");
 });
 
 app.use(router.routes()).use(router.allowedMethods());
