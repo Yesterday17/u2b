@@ -20,11 +20,11 @@ let cfg = {
   dynamic: `#direwolf20# #Minecraft# #y2b#`
 };
 
-new bilibili()
-  .upload({ ...config, ...cfg })
-  .on("success", function(page) {
-    console.log("Success!");
-  })
-  .on("error", function(e) {
-    console.error(e.message);
-  });
+let bili = new bilibili();
+bili.upload({ ...config, ...cfg });
+bili.on("success", function(page) {
+  console.log("Success!");
+});
+bili.on("error", function(e) {
+  console.error(e.message);
+});
