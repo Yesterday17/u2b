@@ -1,4 +1,5 @@
 const bilibili = require("../src/bilibili");
+const config = require("../src/config");
 const path = `./assets/VCyyUelzZZc`;
 
 let cfg = {
