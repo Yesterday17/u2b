@@ -9,7 +9,7 @@ class bilibili extends EventEmitter {
     try {
       let browser;
 
-      if (config.debug) {
+      if (config.debug || false) {
         browser = await puppeteer.launch({
           headless: false,
           slowMo: 200,

@@ -6,6 +6,12 @@ module.exports = {
   url: "http://member.bilibili.com/video/upload.html",
 
   /**
+   * 是否为调试模式
+   * @type boolean
+   */
+  debug: false,
+
+  /**
    * 三项关键cookies
    * @type string
    */

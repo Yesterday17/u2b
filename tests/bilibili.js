@@ -5,6 +5,7 @@ const path = `./assets/VCyyUelzZZc`;
 let cfg = {
   video: [`${path}/video.flv`],
   cover: `${path}/cover.png`,
+  debug: false,
 
   type: 1,
   from: "https://www.youtube.com/watch?v=VCyyUelzZZc",
