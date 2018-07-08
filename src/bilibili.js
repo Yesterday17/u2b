@@ -13,10 +13,14 @@ class bilibili extends EventEmitter {
         browser = await puppeteer.launch({
           headless: false,
           slowMo: 250,
-          devtools: false
+          devtools: false,
+          args: ["--no-sandbox"]
         });
       } else {
-        browser = await puppeteer.launch({ slowMo: 250 });
+        browser = await puppeteer.launch({
+          slowMo: 250,
+          args: ["--no-sandbox"]
+        });
       }
 
       const page = await browser.newPage();
