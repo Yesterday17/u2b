@@ -12,13 +12,13 @@ class bilibili extends EventEmitter {
       if (config.debug) {
         browser = await puppeteer.launch({
           headless: false,
-          slowMo: 250,
+          slowMo: 200,
           devtools: false,
           args: ["--no-sandbox"]
         });
       } else {
         browser = await puppeteer.launch({
-          slowMo: 250,
+          slowMo: 300,
           args: ["--no-sandbox"]
         });
       }
@@ -117,7 +117,8 @@ class bilibili extends EventEmitter {
       // Type
       if (config.type) {
         await clickNode(
-          ".check-radio-v2-container + .check-radio-v2-container > .check-radio-v2-box"
+          ".check-radio-v2-container + .check-radio-v2-container > .check-radio-v2-box",
+          30
         );
         await setText(
           `[placeholder="转载视频请注明来源（例：转自http://www.xxxx.com/yyyy），注明来源会更快地通过审核哦"]`,
