@@ -8,7 +8,7 @@
     "shot": "node ./tests/screenshot.js",
     "bilibili": "node ./tests/bilibili.js",
     "test": "npm run youtube && npm run shot && npm run bilibili",
-    "server": "node ./src/server.js"
+    "start": "node ./src/server.js"
   },
   "bin": {
     "u2b": "./src/server.js"

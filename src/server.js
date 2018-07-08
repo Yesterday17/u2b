@@ -27,6 +27,11 @@ router.get("/v/watch", async (ctx, next) => {
   const path = `../assets/${ctx.request.query.v}`;
   console.log(`${ctx.request.ip} is creating a download of ${url}`);
 
+  // Path exists
+  if (fs.existsSync(path)) {
+    fs.rmdirSync(path);
+  }
+
   // Download video.
 
   // Screenshot
@@ -46,12 +51,11 @@ router.get("/v/watch", async (ctx, next) => {
     description: "",
     tags: Array.from(new Set([...config.tags, ""])).slice(0, 10)
   };
-  /*
 
   new bilibili().upload({ ...config, ...cfg }).on("success", function(page) {
     //
   });
-  */
+
   ctx.response.body = JSON.stringify(
     { message: `${ctx.request.ip} is creating a download of ${url}` },
     null,
