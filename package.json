@@ -4,11 +4,18 @@
   "description": "Youtube video to Bilibili.",
   "main": "index.js",
   "scripts": {
-    "test": "node ./src/index.js"
+    "test": "node ./src/index.js",
+    "server": "node ./src/server.js"
+  },
+  "bin": {
+    "u2b": "./src/server.js"
   },
   "author": "Yesterday17",
   "license": "MIT",
   "dependencies": {
+    "fluent-ffmpeg": "^2.1.2",
+    "koa": "^2.5.1",
+    "koa-router": "^7.4.0",
     "puppeteer": "^1.5.0",
     "ytdl-core": "^0.20.4"
   }
