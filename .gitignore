@@ -1,0 +1,10 @@
+node_modules/
+
+config.js
+
+# Assets
+*.png
+*.jpg
+*.mp4
+*.flv
+assets/
