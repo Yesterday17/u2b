@@ -4,7 +4,10 @@
   "description": "Youtube video to Bilibili.",
   "main": "index.js",
   "scripts": {
-    "test": "node ./src/index.js",
+    "youtube": "node ./tests/youtube.js",
+    "shot": "node ./tests/screenshot.js",
+    "bilibili": "node ./tests/bilibili.js",
+    "test": "npm run youtube && npm run shot && npm run bilibili",
     "server": "node ./src/server.js"
   },
   "bin": {
