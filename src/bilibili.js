@@ -36,16 +36,10 @@ try {
     };
 
     const clickNode = async (selector, times = 1) => {
-      try {
-        let item = await page.waitForSelector(selector);
+      let item = await page.waitForSelector(selector);
 
-        for (let i = 0; i < times; i++) {
-          await item.click();
-        }
-      } catch (e) {
-        console.error(
-          `[Err] ${e.message} (selector=${selector}, times=${times})`
-        );
+      for (let i = 0; i < times; i++) {
+        await item.click();
       }
     };
 
@@ -60,38 +54,22 @@ try {
     };
 
     const upload = async (selector, file) => {
-      try {
-        const upload = await page.waitForSelector(selector);
-        await upload.uploadFile(file);
-      } catch (e) {
-        console.error(
-          `[Err] ${e.message} (selector=${selector}, file=${file})`
-        );
-      }
+      const upload = await page.waitForSelector(selector);
+      await upload.uploadFile(file);
     };
 
     const delText = async selector => {
-      try {
-        await page.click(selector);
-        await page.keyboard.down("Control");
-        await page.keyboard.press("KeyA");
-        await page.keyboard.up("Control");
-        await page.keyboard.press("Backspace");
-      } catch (e) {
-        console.error(`[Err] ${e.message} (selector=${selector})`);
-      }
+      await page.click(selector);
+      await page.keyboard.down("Control");
+      await page.keyboard.press("KeyA");
+      await page.keyboard.up("Control");
+      await page.keyboard.press("Backspace");
     };
 
     const setText = async (selector, text) => {
-      try {
-        await delText(selector);
-        const textBox = await page.waitForSelector(selector);
-        await textBox.type(text);
-      } catch (e) {
-        console.error(
-          `[Err] ${e.message} (selector=${selector}, text=${text})`
-        );
-      }
+      await delText(selector);
+      const textBox = await page.waitForSelector(selector);
+      await textBox.type(text);
     };
 
     // Cookies
