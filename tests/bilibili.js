@@ -1,6 +1,6 @@
 const bilibili = require("../src/bilibili");
 const config = require("../src/config");
-const path = `./assets/VCyyUelzZZc`;
+const path = `./assets/-EbTk3toFgY`;
 
 let cfg = {
   video: [`${path}/video.flv`],
@@ -8,7 +8,7 @@ let cfg = {
   debug: false,
 
   type: 1,
-  from: "https://www.youtube.com/watch?v=VCyyUelzZZc",
+  from: "https://www.youtube.com/watch?v=-EbTk3toFgY",
 
   title: "Forever Stranded LS Ep1 Oh No, not again",
   description: `I feel like a bowl of petunia's right about now. 

@@ -8,7 +8,7 @@
     "shot": "node ./tests/screenshot.js",
     "bilibili": "node ./tests/bilibili.js",
     "test": "npm run youtube && npm run shot && npm run bilibili",
-    "start": "node ./src/server.js"
+    "start": "node ./src/index.js"
   },
   "bin": {
     "u2b": "./src/server.js"
@@ -17,9 +17,9 @@
   "license": "MIT",
   "dependencies": {
     "fluent-ffmpeg": "^2.1.2",
+    "jsencrypt": "^3.0.0-rc.1",
     "koa": "^2.5.1",
     "koa-router": "^7.4.0",
-    "puppeteer": "^1.5.0",
-    "ytdl-core": "^0.20.4"
+    "ytdl-core": "^0.28.0"
   }
 }

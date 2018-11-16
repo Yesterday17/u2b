@@ -1,5 +1,3 @@
-const bilibili = require("./bilibili");
-const config = require("./config");
 const ffmpeg = require("fluent-ffmpeg");
 const fs = require("fs");
 const Koa = require("koa");
@@ -20,7 +18,6 @@ router.get("/v/watch", async (ctx, next) => {
       null,
       2
     );
-    return;
   }
 
   const url = `https://www.youtube.com/watch?v=${ctx.request.query.v}`;
